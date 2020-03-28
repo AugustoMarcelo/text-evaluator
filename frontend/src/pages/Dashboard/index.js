@@ -1,25 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
 import Pagination from '../../components/Pagination';
 import FAB from '../../components/FAB';
 import TextItem from '../../components/TextItem';
-import { Container, Content, FilterActions, TextList } from './styles';
+import { Container, Content, FilterActions, TextList, Loading } from './styles';
 
 export default function Dashboard() {
   const [texts, setTexts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
-    limit: 10,
+    limit: 5,
+    order: 'likes'
+  });
+  const [filterActive, setFilterActive] = useState({
+    likes: 'active',
+    dislikes: '',
   });
 
   const loadTexts = useCallback(async () => {
-    const { limit, page } = pagination;
     const response = await api.get('/texts', {
       params: {
-        page,
-        limit,
+        ...pagination,
       },
     });
 
@@ -46,13 +51,69 @@ export default function Dashboard() {
     });
   }
 
+  async function handleInputFile(e) {
+    const reader = new FileReader();
+    reader.readAsText(e.target.files[0]);
+
+    reader.onload = (event) => {
+      let csv = event.target.result;
+      
+      let texts = csv.split(/\n/);
+      texts.pop();
+
+      texts.forEach(async (description, index, array) => {
+        setLoading(true);
+
+        description = description.replace(/"/g, '').trim();
+        
+        await api.post('texts', { description });
+
+        if (index === array.length - 1) {
+          setLoading(false);
+          loadTexts();
+        }
+      });
+    }
+  }
+
+  function handleFilterLikes() {
+    setFilterActive({
+      likes: 'active',
+      dislikes: '',
+    });
+    setPagination({
+      ...pagination,
+      order: 'likes',
+    });
+  };
+
+  function handleFilterDislikes() {
+    setFilterActive({
+      likes: '',
+      dislikes: 'active',
+    });
+    setPagination({
+      ...pagination,
+      order: 'dislikes',
+    });
+  };
+
   return (
     <Container>
       <Content>
+        {loading && (
+          <Loading>
+            <FaSpinner size={20} />
+            Fazendo upload...
+          </Loading>
+        )}
         <FilterActions>
-          <li className="active"><button>Gostei</button></li>
-          <li><button>Não Gostei</button></li>
-          <li className="slide"></li>
+          <li className={`${filterActive.likes}`}>
+            <button onClick={handleFilterLikes}>Gostei</button>
+          </li>
+          <li className={`${filterActive.dislikes}`}>
+            <button onClick={handleFilterDislikes}>Não Gostei</button>
+          </li>
         </FilterActions>
         <TextList>
           {texts.map(text => (
@@ -67,7 +128,7 @@ export default function Dashboard() {
             texts.length === 0 || texts.length < pagination.limit
           }
         />
-        <FAB />
+        <FAB handleInputFile={handleInputFile} />
       </Content>
     </Container>
   )

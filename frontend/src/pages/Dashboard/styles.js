@@ -1,12 +1,22 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const Container = styled.div`
-  height: 100%;
+  min-height: 100%;
+  /* margin: 20px 0; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 `;
 
 export const Content = styled.div`
@@ -32,6 +42,7 @@ export const FilterActions = styled.ul`
     button {
       color: #CECECE;
       border-bottom: 2px solid #cecece;
+      transition: all 0.2s;
     }
   }
 
@@ -49,4 +60,27 @@ export const TextList = styled.div`
   width: 100%;
   max-width: 800px;
   margin: 10px 0;
+`;
+
+export const Loading = styled.div`
+  background: rgba(0,0,0,.8);
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+
+  svg {
+    animation: ${rotate} 2s linear infinite;
+    margin-bottom: 10px;
+  }
 `;
