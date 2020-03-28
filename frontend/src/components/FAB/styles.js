@@ -13,12 +13,20 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
 
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   transition: background 0.2s;
 
+  label {
+    cursor: pointer;
+  }
+
   &:hover {
     background: ${darken(0.08, '#9B59B6')};
+  }
+
+  input {
+    display: none;
   }
 `;

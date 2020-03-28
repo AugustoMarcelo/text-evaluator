@@ -3,10 +3,18 @@ import { MdFileUpload } from 'react-icons/md';
 
 import { Button } from './styles';
 
-export default function FAB() {
+export default function FAB({ handleInputFile }) {
   return (
     <Button type="button">
-      <MdFileUpload size={32} color="#fff" />
+      <label htmlFor="file">
+        <MdFileUpload size={32} color="#fff" />
+        <input
+          type="file"
+          id="file"
+          accept=".csv"
+          onChange={handleInputFile}
+        />
+      </label>
     </Button>
   )
 }
