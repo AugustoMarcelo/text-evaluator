@@ -1,5 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const Container = styled.div`
   height: 100%;
@@ -45,14 +54,49 @@ export const Box = styled.div`
   justify-content: center;
 `;
 
-export const Text = styled.p`
-  font-size: 20px;
-  text-align: justify;
-  font-style: italic;
+export const Loading = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-weight: bold;
 
-  &::before,
-  &::after {
-    content: '"';
+  svg {
+    animation: ${rotate} 2s linear infinite;
+    margin-bottom: 10px;
+  }
+`;
+
+export const EmptyText = styled.div`
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+`;
+
+export const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    font-size: 20px;
+    text-align: justify;
+    font-style: italic;
+    margin-bottom:  5px;
+
+    &:first-of-type {
+      &::before {
+        content: '"';
+      }
+    }
+
+    &:last-of-type {
+      &::after {
+        content: '"';
+      }
+    }
   }
 `;
 
