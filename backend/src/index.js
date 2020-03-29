@@ -8,7 +8,9 @@ require('./database');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://textevaluator.netlify.com'
+}));
 app.use(express.json());
 app.use(routes);
 
