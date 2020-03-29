@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaSpinner } from 'react-icons/fa';
+import { MdFileDownload } from 'react-icons/md';
 
 import api from '../../services/api';
 
 import Pagination from '../../components/Pagination';
 import FAB from '../../components/FAB';
 import TextItem from '../../components/TextItem';
-import { Container, Content, FilterActions, TextList, Loading } from './styles';
+import { Container, Content, Actions, FilterActions, ExportButton, TextList, Loading } from './styles';
 
 export default function Dashboard() {
   const [texts, setTexts] = useState([]);
@@ -98,6 +99,49 @@ export default function Dashboard() {
     });
   };
 
+  async function handleExportToCSV() {
+    setLoading(true);
+    const response = await api.get('texts', {
+      params: {
+        limit: 2000,
+        order: 'likes',
+      }
+    });
+
+    const data = response.data.rows;
+
+    let csvFile = [];
+    let csvData = [['Legendas', 'Nº de Gostei', 'Nº de Não Gostei']];
+    let totalLikes = 0;
+    let totalDislikes = 0;
+
+    data.forEach(subtitle => {
+      csvData.push([`${subtitle.description}`, subtitle.likes, subtitle.dislikes]);
+      totalLikes += subtitle.likes;
+      totalDislikes += subtitle.dislikes;
+    });
+
+    csvData.forEach(item => {
+      csvFile.push(item.join(";"));
+    });
+
+    csvFile.push([`Total;${totalLikes};${totalDislikes}`]);
+
+    var csvString = csvFile.join('\n');
+    
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    let linkToDownload = document.createElement('a');
+    linkToDownload.setAttribute('hidden', '');
+    linkToDownload.setAttribute('href', url);
+    linkToDownload.setAttribute('download', 'subtitle_rating.csv');
+    document.body.appendChild(linkToDownload);
+    linkToDownload.click();
+    document.body.removeChild(linkToDownload);
+    setLoading(false);
+  }
+
   return (
     <Container>
       <Content>
@@ -107,14 +151,19 @@ export default function Dashboard() {
             Fazendo upload...
           </Loading>
         )}
-        <FilterActions>
-          <li className={`${filterActive.likes}`}>
-            <button onClick={handleFilterLikes}>Gostei</button>
-          </li>
-          <li className={`${filterActive.dislikes}`}>
-            <button onClick={handleFilterDislikes}>Não Gostei</button>
-          </li>
-        </FilterActions>
+        <Actions>
+          <FilterActions>
+            <li className={`${filterActive.likes}`}>
+              <button onClick={handleFilterLikes}>Gostei</button>
+            </li>
+            <li className={`${filterActive.dislikes}`}>
+              <button onClick={handleFilterDislikes}>Não Gostei</button>
+            </li>
+          </FilterActions>
+          <ExportButton onClick={handleExportToCSV}>
+            <MdFileDownload size={32} color="#9B59B6" />
+          </ExportButton>
+        </Actions>
         <TextList>
           {texts.map(text => (
             <TextItem data={text} key={text.id} />
