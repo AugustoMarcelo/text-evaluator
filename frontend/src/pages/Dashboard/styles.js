@@ -24,6 +24,36 @@ export const Content = styled.div`
   max-width: 800px;
 `;
 
+export const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ExportButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 50px;
+  width: 60px;
+  border: 0;
+  background: transparent;
+  border: 1px solid #9B59B6;
+  border-radius: 4px;
+  transition: background 0.2s;
+
+  &:hover:not([disabled]) {
+    background: #9B59B6;
+    color: #fff;
+
+    svg {
+      fill: #fff;
+    }
+  }
+`;
+
 export const FilterActions = styled.ul`
   align-self: flex-start;
   display: flex;
