@@ -42,7 +42,7 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 560px;
   background: #fff;
   box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.2);
