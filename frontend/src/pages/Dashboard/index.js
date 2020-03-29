@@ -160,7 +160,7 @@ export default function Dashboard() {
               <button onClick={handleFilterDislikes}>Não Gostei</button>
             </li>
           </FilterActions>
-          <ExportButton onClick={handleExportToCSV}>
+          <ExportButton onClick={handleExportToCSV} title="Gera um arquivo .csv com todas as legendas e suas avaliações">
             <MdFileDownload size={32} color="#9B59B6" />
           </ExportButton>
         </Actions>

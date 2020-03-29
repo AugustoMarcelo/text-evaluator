@@ -5,7 +5,7 @@ import { Button } from './styles';
 
 export default function FAB({ handleInputFile }) {
   return (
-    <Button type="button">
+    <Button type="button" title="Fazer upload de arquivo">
       <label htmlFor="file">
         <MdFileUpload size={32} color="#fff" />
         <input
