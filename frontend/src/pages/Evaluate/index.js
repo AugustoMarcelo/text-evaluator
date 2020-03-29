@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { MdSubdirectoryArrowRight } from 'react-icons/md';
 import { FaSpinner } from 'react-icons/fa';
 
 import generateRandomNumber from '../../utils/generateRandomNumber';
@@ -102,10 +100,6 @@ export default function Evaluate() {
 
   return (
     <Container>
-      <Link to="/dashboard">
-        <MdSubdirectoryArrowRight size={18} color="#888888" />
-        Dashboard
-      </Link>
       <Box>
         {loading ? (
           <Loading>
