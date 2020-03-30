@@ -11,12 +11,17 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      likes: {
+      funny: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false,
       },
-      dislikes: {
+      nice: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+      },
+      ok: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false,
