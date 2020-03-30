@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { darken } from 'polished';
 
 const rotate = keyframes`
   from {
@@ -11,17 +12,17 @@ const rotate = keyframes`
 
 export const Container = styled.div`
   min-height: 100%;
-  /* margin: 20px 0; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* position: relative; */
+  background: #161616;
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 1000px;
+  margin: 10px 0;
 `;
 
 export const Actions = styled.div`
@@ -39,18 +40,12 @@ export const ExportButton = styled.button`
   height: 50px;
   width: 60px;
   border: 0;
-  background: transparent;
-  border: 1px solid #9B59B6;
+  background: #9B59B6;
   border-radius: 4px;
   transition: background 0.2s;
 
   &:hover:not([disabled]) {
-    background: #9B59B6;
-    color: #fff;
-
-    svg {
-      fill: #fff;
-    }
+    background: ${darken(0.1, '#9B59B6')};
   }
 `;
 
@@ -70,9 +65,14 @@ export const FilterActions = styled.ul`
 
   li {
     button {
-      color: #CECECE;
-      border-bottom: 2px solid #cecece;
+      color: rgb(153,153,153);
       transition: all 0.2s;
+    }
+
+    &:hover {
+      button {
+        color: #cecece;
+      }
     }
   }
 
@@ -88,7 +88,7 @@ export const TextList = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 800px;
+  max-width: inherit;
   margin: 10px 0;
 `;
 

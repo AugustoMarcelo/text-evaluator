@@ -18,6 +18,11 @@ export const Button = styled.button`
   right: 20px;
   transition: background 0.2s;
 
+  @media screen and (max-width: 600px) {
+    right: unset;
+    left: 20px;
+  }
+
   label {
     cursor: pointer;
   }

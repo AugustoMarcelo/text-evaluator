@@ -17,6 +17,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  background: #161616;
 
   a {
     text-decoration: none;
@@ -41,13 +42,30 @@ export const Container = styled.div`
   }
 `;
 
+export const Introduction = styled.div`
+  width: 90%;
+  max-width: 560px;
+  color: #fff;
+  text-align: justify;
+  font-size: 1.8rem;
+  line-height: 3rem;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const Box = styled.div`
   width: 90%;
   max-width: 560px;
-  background: #fff;
-  box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.2);
+  background: #1F1F23;
   padding: 30px;
   border-radius: 4px;
+
+  @media screen and (max-width: 360px) {
+    padding: 10px;
+  }
 
   display: flex;
   flex-direction: column;
@@ -81,7 +99,8 @@ export const Text = styled.div`
   align-items: center;
 
   p {
-    font-size: 20px;
+    font-size: 2rem;
+    color: #fff;
     text-align: justify;
     font-style: italic;
     margin-bottom:  5px;
@@ -106,35 +125,34 @@ export const Actions = styled.div`
   justify-content: space-between;
 
   button {
-    height: 60px;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
     border: 0;
-    background: transparent;
+    background: #5D5274;
     text-transform: uppercase;
     color: #fff;
     border-radius: 4px;
     transition: background 0.2s;
     width: 100%;
+    padding: 8px 0;
 
-    &:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 8px;
+    }
+
+    &:not(:last-of-type) {
       margin-right: 20px;
     }
 
-    &.dislike {
-      background: #c4c4c4;
-
-      &:hover {
-        background: ${darken(0.08, '#c4c4c4')}
-      }
-    }
-
-    &.like {
-      background: #27AE60;
-
-      &:hover {
-        background: ${darken(0.08, '#27AE60')}
-      }
+    &:hover {
+      background: ${darken(0.08, '#5D5274')};
     }
   }
 `;
