@@ -6,8 +6,9 @@ class Text extends Model {
     super.init(
       {
         description: Sequelize.STRING,
-        likes: Sequelize.INTEGER,
-        dislikes: Sequelize.INTEGER,
+        funny: Sequelize.INTEGER,
+        nice: Sequelize.INTEGER,
+        ok: Sequelize.INTEGER,
       },
       {
         sequelize,
