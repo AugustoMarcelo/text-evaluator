@@ -4,7 +4,7 @@ module.exports = {
   async index(request, response) {
     const { page = 1, limit = 5 } = request.query;
     const offset = (page - 1) * limit;
-    const columnsPermitted = ['likes', 'dislikes'];
+    const columnsPermitted = ['funny', 'nice', 'ok'];
 
     let order = [];
 

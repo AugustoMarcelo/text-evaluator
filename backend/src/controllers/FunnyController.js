@@ -10,7 +10,7 @@ module.exports = {
       return response.status(400).json({ error: 'Texto não encontrado' });
     }
 
-    await (await text.increment({ dislikes: 1 })).update();
+    await (await text.increment({ funny: 1 })).update();
 
     return response.status(200).json(text);
   }
