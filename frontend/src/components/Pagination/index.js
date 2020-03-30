@@ -18,7 +18,7 @@ export default function Pagination({
         disabled={prevDisabled && 'disabled'}
         onClick={handlePreviousPage}
       >
-        <MdArrowBack size={20} color="#9B59B6" />
+        <MdArrowBack size={24} color="#fff" />
       </button>
       <button
         title="Clique para buscar mais registros"
@@ -26,7 +26,7 @@ export default function Pagination({
         disabled={nextDisabled && 'disabled'}
         onClick={handleNextPage}
       >
-        <MdArrowForward size={20} color="#9B59B6" />
+        <MdArrowForward size={24} color="#fff" />
       </button>
     </Container>
   );
