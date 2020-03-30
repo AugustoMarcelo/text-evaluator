@@ -15,11 +15,12 @@ export default function Dashboard() {
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 5,
-    order: 'likes'
+    order: 'funny'
   });
   const [filterActive, setFilterActive] = useState({
-    likes: 'active',
-    dislikes: '',
+    funny: 'active',
+    nice: '',
+    ok: '',
   });
 
   const loadTexts = useCallback(async () => {
@@ -77,25 +78,39 @@ export default function Dashboard() {
     }
   }
 
-  function handleFilterLikes() {
+  function handleFilterFunny() {
     setFilterActive({
-      likes: 'active',
-      dislikes: '',
+      funny: 'active',
+      nice: '',
+      ok: '',
     });
     setPagination({
       ...pagination,
-      order: 'likes',
+      order: 'funny',
     });
   };
 
-  function handleFilterDislikes() {
+  function handleFilterNice() {
     setFilterActive({
-      likes: '',
-      dislikes: 'active',
+      funny: '',
+      nice: 'active',
+      ok: '',
     });
     setPagination({
       ...pagination,
-      order: 'dislikes',
+      order: 'nice',
+    });
+  };
+
+  function handleFilterOK() {
+    setFilterActive({
+      funny: '',
+      nice: '',
+      ok: 'active',
+    });
+    setPagination({
+      ...pagination,
+      order: 'ok',
     });
   };
 
@@ -104,28 +119,30 @@ export default function Dashboard() {
     const response = await api.get('texts', {
       params: {
         limit: 2000,
-        order: 'likes',
+        order: 'funny',
       }
     });
 
     const data = response.data.rows;
 
     let csvFile = [];
-    let csvData = [['Legendas', 'Nº de Gostei', 'Nº de Não Gostei']];
-    let totalLikes = 0;
-    let totalDislikes = 0;
+    let csvData = [['Legendas', 'Engraçados', 'Adoráveis', 'Ok']];
+    let totalFunny = 0;
+    let totalNice = 0;
+    let totalOk = 0;
 
     data.forEach(subtitle => {
-      csvData.push([`${subtitle.description}`, subtitle.likes, subtitle.dislikes]);
-      totalLikes += subtitle.likes;
-      totalDislikes += subtitle.dislikes;
+      csvData.push([`${subtitle.description}`, subtitle.funny, subtitle.nice, subtitle.ok]);
+      totalFunny += subtitle.funny;
+      totalNice += subtitle.nice;
+      totalOk += subtitle.ok;
     });
 
     csvData.forEach(item => {
       csvFile.push(item.join(";"));
     });
 
-    csvFile.push([`Total;${totalLikes};${totalDislikes}`]);
+    csvFile.push([`Total;${totalFunny};${totalNice};${totalOk}`]);
 
     var csvString = csvFile.join('\n');
     
@@ -148,20 +165,26 @@ export default function Dashboard() {
         {loading && (
           <Loading>
             <FaSpinner size={20} />
-            Fazendo upload...
+            Manipulando arquivo...
           </Loading>
         )}
         <Actions>
           <FilterActions>
-            <li className={`${filterActive.likes}`}>
-              <button onClick={handleFilterLikes}>Gostei</button>
+            <li className={`${filterActive.funny}`}>
+              <button onClick={handleFilterFunny}>Engraçados</button>
             </li>
-            <li className={`${filterActive.dislikes}`}>
-              <button onClick={handleFilterDislikes}>Não Gostei</button>
+            <li className={`${filterActive.nice}`}>
+              <button onClick={handleFilterNice}>Agradáveis</button>
+            </li>
+            <li className={`${filterActive.ok}`}>
+              <button onClick={handleFilterOK}>Ok</button>
             </li>
           </FilterActions>
-          <ExportButton onClick={handleExportToCSV} title="Gera um arquivo .csv com todas as legendas e suas avaliações">
-            <MdFileDownload size={32} color="#9B59B6" />
+          <ExportButton 
+            onClick={handleExportToCSV} 
+            title="Gera um arquivo .csv com todas as legendas e suas avaliações"
+          >
+            <MdFileDownload size={32} color="#fff" />
           </ExportButton>
         </Actions>
         <TextList>

@@ -4,7 +4,7 @@ import { FaSpinner } from 'react-icons/fa';
 import generateRandomNumber from '../../utils/generateRandomNumber';
 import api from '../../services/api';
 
-import { Container, Box, Loading, EmptyText, Text, Actions } from './styles';
+import { Container, Introduction, Box, Loading, EmptyText, Text, Actions } from './styles';
 
 export default function Evaluate() {
   const [text, setText] = useState({
@@ -60,10 +60,10 @@ export default function Evaluate() {
     loadNewText();
   }, [loadNewText]);
 
-  async function handleLike() {
+  async function handleFunny() {
     if (finished) return;
     
-    await api.put(`texts/${text.id}/likes`);
+    await api.put(`texts/${text.id}/funny`);
 
     let exclude = [];
     const storaged = JSON.parse(localStorage.getItem('texts'));
@@ -79,10 +79,29 @@ export default function Evaluate() {
     loadNewText();
   }
   
-  async function handleDislike() {
+  async function handleNice() {
     if (finished) return;
     
-    await api.put(`texts/${text.id}/dislikes`);
+    await api.put(`texts/${text.id}/nice`);
+
+    let exclude = [];
+    const storaged = JSON.parse(localStorage.getItem('texts'));
+
+    if (storaged) {
+      exclude = storaged;
+    }
+
+    exclude.push(text.id);
+
+    localStorage.setItem('texts', JSON.stringify(exclude));
+
+    loadNewText();
+  }
+
+  async function handleOK() {
+    if (finished) return;
+    
+    await api.put(`texts/${text.id}/ok`);
 
     let exclude = [];
     const storaged = JSON.parse(localStorage.getItem('texts'));
@@ -100,6 +119,10 @@ export default function Evaluate() {
 
   return (
     <Container>
+      <Introduction>
+      Vote por favor na legenda abaixo. Queremos selecionar quais são as mais engraçadas para usar nos vídeos de divulgação em inglês. As estrofes que você não encontrar nenhum elemento cômico, pode votar em “achei ok”.
+      <p>Obrigado!</p>
+      </Introduction>
       <Box>
         {loading ? (
           <Loading>
@@ -117,8 +140,18 @@ export default function Evaluate() {
               ))}
             </Text>
             <Actions>
-              <button onClick={handleDislike} className="dislike">Não gostei</button>
-              <button onClick={handleLike} className="like">Gostei</button>
+              <button onClick={handleFunny}>
+                <img src="https://twemoji.maxcdn.com/2/svg/1f604.svg" alt="Emoji engraçado" />
+                Achei engraçado
+              </button>
+              <button onClick={handleNice}>
+                <img src="https://twemoji.maxcdn.com/2/svg/1f642.svg" alt="Emoji adorável" />
+                Achei agradável
+              </button>
+              <button onClick={handleOK}>
+                <img src="https://twemoji.maxcdn.com/2/svg/1f610.svg" alt="Emoji neutro" />
+                Achei OK
+              </button>
             </Actions>
             </>
           )

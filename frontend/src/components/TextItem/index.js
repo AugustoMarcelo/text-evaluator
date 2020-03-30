@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { Row } from './styles';
+import { Row, Rating } from './styles';
 
 export default function TextItem({ data }) {
   return (
     <Row>
       <div className="description">{data.description}</div>
-      <div className="likes">{data.likes}</div>
-      <div className="dislikes">{data.dislikes}</div>
+      <Rating>
+        <div className="count">{data.funny}</div>
+        <div className="count">{data.nice}</div>
+        <div className="count">{data.ok}</div>
+      </Rating>
     </Row>
   );
 }

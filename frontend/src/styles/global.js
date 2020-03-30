@@ -8,12 +8,16 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    font-size: 62.5%;
+  }
+
   html, body, #root {
     height: 100%;
   }
   
   body {
-    font: 400 14px Roboto, sans-serif;
+    font: 400 1.4rem Roboto, sans-serif;
     background: #f5f5f5;
     -webkit-font-smoothing: antialiased;
   }

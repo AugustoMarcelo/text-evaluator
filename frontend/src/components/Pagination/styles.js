@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   margin-top: 10px;
@@ -7,8 +8,8 @@ export const Container = styled.div`
   justify-content: flex-end;
 
   button {
-    border: 1px solid #9B59B6;
-    background: transparent;
+    border: 0;
+    background: #9B59B6;
     height: 50px;
     width: 60px;
     color: #9B59B6;
@@ -26,6 +27,7 @@ export const Container = styled.div`
 
     &[disabled] {
       border: 1px solid #bbb;
+      background: transparent;
       color: #bbb;
       cursor: not-allowed;
 
@@ -35,12 +37,7 @@ export const Container = styled.div`
     }
 
     &:hover:not([disabled]) {
-      background: #9B59B6;
-      color: #fff;
-
-      svg {
-        fill: #fff;
-      }
+      background: ${darken(0.1, '#9B59B6')};
     }
   }
 `;
