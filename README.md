@@ -60,15 +60,15 @@ A ferramenta é um buscador de textos cadastrados previamente no banco e permite
   </div>
 
  - Será necessário adicionar na pasta **public** um arquivo *_redirects* para que o roteamento de páginas possa funcionar. Dentro do arquivo adicione a seguinte linha:
-  `/*    /index.html   200`
+  `/*    /index.html   200`;
 
  - Para o backend, será necessário instalar a cli do heroku. Você pode fazer via chocolatey com o comando `choco install heroku` ou pelo comando `npm install -g heroku`;
 
  - Com a cli do heroku instalado, execute o comando `heroku login` para realizar a autenticação;
 
- - Será necessário adicionar
+ - Será necessário adicionar uma ferramenta (addons) para que o heroku consiga gerenciar o postgres. Você pode fazer isso pela própria dashboard do heroku ou via comando `heroku addons:create heroku-postgresql:hobby-dev`. A instalação pode levar alguns minutos; para checar se a ferramenta foi instalada, execute `heroku addons`;
 
- - Data a estrutura atual de pastas, na raiz do projeto, execute `git subtree push --prefix backend heroku master` para repassar todo o backend para o repositório criado pelo heroku;
+ - Dada a estrutura atual de pastas, na raiz do projeto, execute `git subtree push --prefix backend heroku master` para repassar todo o backend para o repositório criado pelo heroku;
 
  - Na dashboard do heroku, crie as variáveis ambiente conforme o arquivo .env.example sugere;
 
