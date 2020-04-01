@@ -68,6 +68,8 @@ A ferramenta é um buscador de textos cadastrados previamente no banco e permite
 
  - Será necessário adicionar uma ferramenta (addons) para que o heroku consiga gerenciar o postgres. Você pode fazer isso pela própria dashboard do heroku ou via comando `heroku addons:create heroku-postgresql:hobby-dev`. A instalação pode levar alguns minutos; para checar se a ferramenta foi instalada, execute `heroku addons`;
 
+ - Devemos definir o buildpack (linguagem da nossa aplicação), e para isso há várias formas: via dashboard do heroku; no momento de criação da aplicação via `heroku create myapp --buildpack heroku/nodejs`; ou setando via `heroku buildapacks:set heroku/nodejs`;
+
  - Dada a estrutura atual de pastas, na raiz do projeto, execute `git subtree push --prefix backend heroku master` para repassar todo o backend para o repositório criado pelo heroku;
 
  - Na dashboard do heroku, crie as variáveis ambiente conforme o arquivo .env.example sugere;
