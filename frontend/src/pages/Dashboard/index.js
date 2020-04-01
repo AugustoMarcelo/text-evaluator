@@ -142,7 +142,7 @@ export default function Dashboard() {
       csvFile.push(item.join("_"));
     });
 
-    csvFile.push([`Total;${totalFunny};${totalNice};${totalOk}`]);
+    csvFile.push([`Total_${totalFunny}_${totalNice}_${totalOk}`]);
 
     var csvString = csvFile.join('\n');
     
