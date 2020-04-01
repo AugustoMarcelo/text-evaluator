@@ -139,7 +139,7 @@ export default function Dashboard() {
     });
 
     csvData.forEach(item => {
-      csvFile.push(item.join(";"));
+      csvFile.push(item.join("_"));
     });
 
     csvFile.push([`Total;${totalFunny};${totalNice};${totalOk}`]);
